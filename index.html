@@ -3,64 +3,555 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <title>Workato Integration Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Enterprise integration developer portfolio showcasing Workato, Salesforce, REST APIs and automation projects.">
+  <title>Integration Lab | Developer Portfolio</title>
+
   <style>
+    :root {
+      --bg: #080e1d;
+      --panel: #111d32;
+      --border: #293a55;
+      --text: #f2f6ff;
+      --muted: #a1b3cb;
+      --accent: #64e6c4;
+      --blue: #6ba7ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      background: #f4f7fb;
-      color: #243044;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
     }
-    header {
-      background: #173b70;
-      color: white;
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 10%,
+          #17456b55, transparent 40%),
+        radial-gradient(circle at 85% 45%,
+          #164c4550, transparent 35%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1120px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #080e1de8;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span, .accent { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero {
+      padding: 115px 0 95px;
       text-align: center;
-      padding: 60px 20px;
     }
-    main {
-      max-width: 850px;
-      margin: 30px auto;
-      padding: 0 20px;
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 16px;
+      border: 1px solid #286a68;
+      border-radius: 30px;
+      color: var(--accent);
+      background: #123f3b50;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
     }
-    section {
-      background: white;
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.12;
+      letter-spacing: -3px;
+      margin: 28px 0;
+    }
+
+    .hero p {
+      max-width: 690px;
+      margin: 0 auto 34px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: transform .2s;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .primary {
+      background: var(--accent);
+      color: #081b1d;
+    }
+
+    .secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: #ffffff08;
+    }
+
+    section { padding: 65px 0; }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      margin: 10px 0 14px;
+      letter-spacing: -1px;
+    }
+
+    .intro {
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(145deg,
+        #17263e, #101a2b);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: .25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 40px #00000040;
+    }
+
+    .card h3 { margin: 12px 0; }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .icon {
+      font-size: 30px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 5px 5px 0 0;
+      padding: 5px 10px;
+      background: #23405a;
+      color: #c3e9ff;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .architecture {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .node {
+      min-width: 185px;
       padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 12px;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
     }
-    h2 { color: #173b70; }
+
+    .node strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .node small { color: var(--muted); }
+
+    .node.main {
+      border-color: var(--accent);
+      box-shadow: 0 0 28px #64e6c41b;
+    }
+
+    .arrow {
+      color: var(--accent);
+      font-size: 26px;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 18px;
+      background: var(--panel);
+      color: #d8e7f7;
+    }
+
+    .contact {
+      text-align: center;
+      padding: 65px 25px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: linear-gradient(135deg,
+        #173452, #123b3b);
+    }
+
+    .contact p { color: var(--muted); }
+
     footer {
+      border-top: 1px solid var(--border);
+      padding: 30px;
       text-align: center;
-      padding: 25px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s, transform .6s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 800px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav-inner {
+        flex-direction: column;
+        padding: 15px 0;
+      }
+      .nav-links { justify-content: center; }
+      .hero { padding: 75px 0; }
+      h1 { letter-spacing: -1px; }
+      .architecture { flex-direction: column; }
+      .arrow { transform: rotate(90deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+      * { transition: none !important; }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>Workato Integration Developer Portfolio</h1>
-    <p>Workato | Salesforce | REST APIs</p>
+
+  <nav>
+    <div class="container nav-inner">
+      <a class="logo" href="#">
+        integration<span>.lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero container">
+    <span class="eyebrow">
+      ENTERPRISE INTEGRATION PORTFOLIO
+    </span>
+
+    <h1>
+      Connecting systems.<br>
+      <span class="accent">Creating possibilities.</span>
+    </h1>
+
+    <p>
+      Exploring modern enterprise integration using
+      Workato, Salesforce, REST APIs, cloud platforms
+      and intelligent automation.
+    </p>
+
+    <div class="buttons">
+      <a href="#projects" class="btn primary">
+        Explore Projects
+      </a>
+      <a href="#architecture" class="btn secondary">
+        View Architecture
+      </a>
+    </div>
   </header>
+
   <main>
-    <section>
-      <h2>About</h2>
-      <p>Personal portfolio for enterprise
-         integration development.</p>
+    <section id="about" class="container reveal">
+      <span class="section-label">01 / About</span>
+      <h2>Integration engineering</h2>
+      <p class="intro">
+        This personal technical portfolio documents
+        hands-on integration projects, architecture
+        experiments and automation solutions.
+        The focus is on scalable APIs, reliable
+        data synchronization and secure workflows.
+      </p>
     </section>
-    <section>
-      <h2>Projects</h2>
-      <p>Salesforce Customer 360 Integration</p>
-      <p>API Automation and Data Synchronization</p>
-      <p>Event-Driven Integration POCs</p>
+
+    <section id="architecture" class="container reveal">
+      <span class="section-label">02 / Architecture</span>
+      <h2>Connected enterprise systems</h2>
+      <p class="intro">
+        An example Customer 360 integration architecture
+        connecting CRM platforms through Workato.
+      </p>
+
+      <div class="architecture">
+        <div class="node">
+          <strong>Salesforce</strong>
+          <small>CRM Source</small>
+        </div>
+
+        <div class="arrow">⇄</div>
+
+        <div class="node main">
+          <strong>Workato</strong>
+          <small>Integration Orchestration</small>
+        </div>
+
+        <div class="arrow">⇄</div>
+
+        <div class="node">
+          <strong>HubSpot</strong>
+          <small>CRM Destination</small>
+        </div>
+      </div>
     </section>
-    <section>
-      <h2>Technologies</h2>
-      <p>Workato, Salesforce, REST APIs,
-         OAuth 2.0, JSON and SQL.</p>
+
+    <section id="projects" class="container reveal">
+      <span class="section-label">03 / Portfolio</span>
+      <h2>Integration project lab</h2>
+      <p class="intro">
+        Architecture concepts and hands-on
+        proof-of-concept projects.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="icon">🔄</div>
+          <h3>Customer 360 Integration</h3>
+          <p>
+            Salesforce and HubSpot synchronization
+            with canonical mappings, duplicate
+            prevention and recovery workflows.
+          </p>
+          <span class="tag">Salesforce</span>
+          <span class="tag">Workato</span>
+          <span class="tag">CRM</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🔐</div>
+          <h3>API Orchestration</h3>
+          <p>
+            Secure REST API design with authentication,
+            reusable services, validation and
+            standardized error responses.
+          </p>
+          <span class="tag">REST API</span>
+          <span class="tag">OAuth 2.0</span>
+          <span class="tag">JSON</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🤖</div>
+          <h3>AI Workflow Automation</h3>
+          <p>
+            Intelligent ticket classification,
+            workflow routing, agent tools and
+            human-in-the-loop approval patterns.
+          </p>
+          <span class="tag">AI</span>
+          <span class="tag">MCP</span>
+          <span class="tag">Automation</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">⚡</div>
+          <h3>Event-Driven Integration</h3>
+          <p>
+            Webhook processing, asynchronous events,
+            retries, idempotency and recovery design.
+          </p>
+          <span class="tag">Webhooks</span>
+          <span class="tag">Events</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🧩</div>
+          <h3>Custom Connector SDK</h3>
+          <p>
+            Custom integration connectors with
+            authentication, actions, triggers
+            and pagination.
+          </p>
+          <span class="tag">Ruby</span>
+          <span class="tag">SDK</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🗄️</div>
+          <h3>Data Synchronization</h3>
+          <p>
+            Incremental data extraction,
+            SQL transformations, bulk processing,
+            reconciliation and audit tracking.
+          </p>
+          <span class="tag">SQL</span>
+          <span class="tag">ETL</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="container reveal">
+      <span class="section-label">04 / Technologies</span>
+      <h2>Technology stack</h2>
+
+      <div class="skill-list">
+        <span class="skill">Workato</span>
+        <span class="skill">Salesforce</span>
+        <span class="skill">HubSpot</span>
+        <span class="skill">REST APIs</span>
+        <span class="skill">OAuth 2.0</span>
+        <span class="skill">JSON</span>
+        <span class="skill">SQL</span>
+        <span class="skill">Webhooks</span>
+        <span class="skill">API Platform</span>
+        <span class="skill">Custom Connectors</span>
+        <span class="skill">Event-Driven Architecture</span>
+        <span class="skill">AI Automation</span>
+      </div>
+    </section>
+
+    <section id="contact" class="container reveal">
+      <div class="contact">
+        <span class="section-label">05 / Connect</span>
+        <h2>Let's build connected systems.</h2>
+        <p>
+          Explore integration projects, automation
+          workflows and architecture experiments.
+        </p>
+        <div class="buttons">
+          <a class="btn primary"
+             href="https://github.com/srinudb11-spec"
+             target="_blank"
+             rel="noopener noreferrer">
+            View GitHub Profile
+          </a>
+        </div>
+      </div>
     </section>
   </main>
-  <footer>Personal integration portfolio</footer>
+
+  <footer>
+    <span id="year"></span>
+    &copy; Integration Lab.
+    Personal technical portfolio.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".reveal")
+        .forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll(".reveal")
+        .forEach(el => el.classList.add("visible"));
+    }
+  </script>
+
 </body>
 </html>
-  
